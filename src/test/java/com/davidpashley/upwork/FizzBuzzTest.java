@@ -42,5 +42,25 @@ class FizzBuzzTest {
         }
     }
 
+    @Test
+    void testStepThree() throws IOException {
+        String expected = "1 2 lucky 4 buzz fizz 7 8 fizz buzz 11 fizz lucky 14 fizzbuzz 16 17 fizz 19 buzz\n"
+                + "fizz: 4\n"
+                + "buzz: 3\n"
+                + "fizzbuzz: 1\n"
+                + "lucky: 2\n"
+                + "integer: 10\n";
+
+        var stepThree = new StepThree();
+
+        try (var os = new ByteArrayOutputStream();
+             var out = new PrintStream(os, false, UTF_8)) {
+            stepThree.run(20, out);
+
+            var actual = os.toString(UTF_8);
+            assertThat(actual, is(expected));
+        }
+    }
+
 }
 
