@@ -10,7 +10,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-class StepOneTest {
+class FizzBuzzTest {
 
     @Test
     void testStepOne() throws IOException {
@@ -21,6 +21,21 @@ class StepOneTest {
         try (var os = new ByteArrayOutputStream();
              var out = new PrintStream(os, false, UTF_8)) {
             stepOne.run(20, out);
+
+            var actual = os.toString(UTF_8);
+            assertThat(actual, is(expected));
+        }
+    }
+
+    @Test
+    void testStepTwo() throws IOException {
+        String expected = "1 2 lucky 4 buzz fizz 7 8 fizz buzz 11 fizz lucky 14 fizzbuzz 16 17 fizz 19 buzz";
+
+        var stepTwo = new StepTwo();
+
+        try (var os = new ByteArrayOutputStream();
+             var out = new PrintStream(os, false, UTF_8)) {
+            stepTwo.run(20, out);
 
             var actual = os.toString(UTF_8);
             assertThat(actual, is(expected));
