@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -18,7 +19,7 @@ class StepOneTest {
         var stepOne = new StepOne();
 
         try (var os = new ByteArrayOutputStream();
-             var out = new PrintStream(os)) {
+             var out = new PrintStream(os, false, UTF_8)) {
             stepOne.run(20, out);
 
             var actual = out.toString();
