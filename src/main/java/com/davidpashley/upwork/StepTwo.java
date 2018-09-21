@@ -12,7 +12,9 @@ public class StepTwo {
     void run(int max, PrintStream out) {
         IntStream.rangeClosed(1, max)
                 .forEach(i -> {
-                    if (i % 15 == 0) {
+                    if (i % 10 == 3) {
+                        out.print("lucky");
+                    } else if (i % 15 == 0) {
                         out.print("fizzbuzz");
                     } else if (i % 5 == 0) {
                         out.print("buzz");
