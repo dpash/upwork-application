@@ -22,7 +22,7 @@ class StepOneTest {
              var out = new PrintStream(os, false, UTF_8)) {
             stepOne.run(20, out);
 
-            var actual = out.toString();
+            var actual = os.toString(UTF_8);
             assertThat(actual, is(expected));
         }
     }
