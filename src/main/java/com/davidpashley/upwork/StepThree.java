@@ -1,6 +1,9 @@
 package com.davidpashley.upwork;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 public class StepThree {
@@ -10,24 +13,39 @@ public class StepThree {
      * default.
      */
     void run(int max, PrintStream out) {
+        var counts = new HashMap<String, AtomicInteger>();
         IntStream.rangeClosed(1, max)
                 .forEach(i -> {
                     if (i % 10 == 3) {
                         out.print("lucky");
+                        incrementCount(counts, "lucky");
                     } else if (i % 15 == 0) {
                         out.print("fizzbuzz");
+                        incrementCount(counts, "fizzbuzz");
                     } else if (i % 5 == 0) {
                         out.print("buzz");
+                        incrementCount(counts, "buzz");
                     } else if (i % 3 == 0) {
                         out.print("fizz");
+                        incrementCount(counts, "fizz");
                     } else {
                         out.print(i);
+                        incrementCount(counts, "integer");
                     }
                     if (i != max) {
                         out.print(" ");
                     }
                 });
+        out.println();
+        for (var key : List.of("fizz", "buzz", "fizzbuzz", "lucky", "integer")) {
+            out.printf("%s: %d\n", key, counts.getOrDefault(key, new AtomicInteger(0)).get());
+        }
 
+
+    }
+
+    private int incrementCount(HashMap<String, AtomicInteger> counts, String key) {
+        return counts.computeIfAbsent(key, k -> new AtomicInteger(0)).incrementAndGet();
     }
 
     /**
